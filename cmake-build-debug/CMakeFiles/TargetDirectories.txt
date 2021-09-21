@@ -1,0 +1,11 @@
+G:/codeforces/cmake-build-debug/CMakeFiles/d1.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/tmp.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/d.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/e.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/solve.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/a.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/b.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/c.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/edit_cache.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/main.dir
+G:/codeforces/cmake-build-debug/CMakeFiles/rebuild_cache.dir
