@@ -1,3 +1,0 @@
-"D:\CLion 2019.3.2\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\tmp.dir/objects.a
-G:\cb\CodeBlocks\MinGW\bin\ar.exe cr CMakeFiles\tmp.dir/objects.a @CMakeFiles\tmp.dir\objects1.rsp
-G:\cb\CodeBlocks\MinGW\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\tmp.dir/objects.a -Wl,--no-whole-archive  -o tmp.exe -Wl,--out-implib,libtmp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\tmp.dir\linklibs.rsp
