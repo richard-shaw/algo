@@ -28,17 +28,17 @@ void init() {
     for (int i = 2; i < MAX; i++) phi[i] += phi[i-1];
 }
 
-void solve() {
+void solve(int i) {
     int N;
     cin >> N;
-    cout << (N * (N + 1) / 2 - phi[N]) << endl;
+    printf("Case %d: %d\n", i, N * (N + 1) / 2 - phi[N]);
 }
 
 signed main() {
     init();
     int T;
     cin >> T;
-    while (T--) {
-        solve();
+    for (int i = 1; i <= T; i++) {
+        solve(i);
     }
 }
