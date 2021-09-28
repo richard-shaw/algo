@@ -2,7 +2,8 @@
  * Author: $%U%$
  * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
  */
-
+#pragma GCC optimize("Ofast", "inline", "-ffast-math")
+#pragma GCC target("avx,sse2,sse3,sse4,mmx")
 #include<bits/stdc++.h>
 using namespace std;
 void fast_stream() {
