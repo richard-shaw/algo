@@ -16,16 +16,15 @@ const int INF = 0x7fffffffffffffff;
 const int MAXN = 2e5 + 9;
 
 void solve () {
-    // < n / s false
-    // > n false
-    // == n true
-    // (s-1, n-s+1) false
-
-    // 4 2 3
-    // [1,3] [2,2] [3,1]
-    // 4 3 3
-    // [1,1,2][1,2,1][2,1,1]
-    // 56220 47258 14497
+    int s, n, k;
+    cin >> s >> n >> k;
+    if (k > s) cout << "NO" << endl;
+    else if (k == s) cout << "YES" << endl;
+    else {
+        int s_left = (n / k) * 2 * k + n % k;
+        if (s_left <= s) cout << "NO" << endl;
+        else cout << "YES" << endl;
+    }
 }
 
 signed main() {
