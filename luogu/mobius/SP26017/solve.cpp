@@ -3,58 +3,57 @@
 //
 
 #include <bits/stdc++.h>
-#define int long long
-#define MAXN 50005
-#define MOD 1000000007
 using namespace std;
-int visit[MAXN], prime[MAXN], mu[MAXN], tot = 0;
+#define int long long
+#define MAXN 50004
+#define MOD 1000000007
+
+int visit[MAXN], prime[MAXN], phi[MAXN], tot = 0;
 void init() {
     memset(visit, 0, sizeof(visit));
-    mu[0] = 0, mu[1] = 1;
+    phi[1] = 1;
     for (int i = 2; i < MAXN; i++) {
-        if (visit[i] == 0) prime[++tot] = i, mu[i] = -1;
-        for (int j = 1; j <= tot; j++) {
-            if (i * prime[j] >= MAXN) break;
+        if (visit[i] == 0) prime[++tot] = i, phi[i] = i - 1;
+        for (int j = 1; j <= tot && i * prime[j] < MAXN; j++) {
             visit[i * prime[j]] = 1;
             if (i % prime[j] == 0) {
-                mu[i * prime[j]] = 0;
+                phi[i * prime[j]] = (phi[i] * prime[j]) % MOD;
                 break;
             } else {
-                mu[i * prime[j]] = -mu[i];
+                phi[i * prime[j]] = (phi[i] * phi[prime[j]]) % MOD;
             }
         }
     }
-    for (int i = 2; i < MAXN; i++) mu[i] += mu[i-1];
-}
-
-int S(int n, int m) {
-    int ans = 0;
-    if (n <= 0 || m <= 0) return 0;
-    if (n > m) return S(m, n);
-    for (int d = 1; d <= n; d++) {
-        int n0 = n / d, m0 = m / d, s = 0;
-        for (int k = 1; k <= n0;) {
-            int j = min(min(n0 / (n0 / k), m0 / (m0 / k)), n0);
-            s = (s + ((mu[j] - mu[k-1]) * (n0 / k) * (m0 / k)) % MOD) % MOD;
-            k = j + 1;
-        }
-        ans = (ans + (d * s) % MOD) % MOD;
+    for (int i = 2; i < MAXN; i++) {
+        phi[i] = (phi[i] + phi[i - 1]) % MOD;
     }
-    return ans;
 }
 
-int Q(int i1, int j1, int i2, int j2) {
-    int r = (S(i1 - 1, j1 - 1) + S(i2, j2) - S(i1 - 1, j2) - S(i2, j1 - 1)) % MOD;
-    while (r < 0) r += MOD;
-    return r;
+int S(int N, int M) {
+    int Ans = 0;
+    if (N > M) swap(N, M);
+    for (int i = 1; i <= N; ) {
+        int j = min(N, min(N / (N / i), M / (M / i)));
+        int Q = ((N / i) * (M / i)) % MOD;
+        Ans = (Ans + (Q * (phi[j] - phi[i - 1])) % MOD) % MOD;
+        i = j + 1;
+    }
+    while (Ans < 0) Ans += MOD;
+    return Ans;
 }
 
 signed main() {
     init();
-    int T, n, m, i1, i2, j1, j2;
-    cin >> T >> n >> m;
-    while(T--) {
+    int T, N, M, i1, i2, j1, j2;
+    cin >> T >> N >> M;
+    while (T--) {
         cin >> i1 >> j1 >> i2 >> j2;
-        cout << Q(i1, j1, i2, j2) << endl;
+        if (i1 > i2 || j1 > j2) {
+            cout << 0 << endl;
+            continue;
+        }
+        int Ans = (S(i1 - 1, j1 - 1) + S(i2, j2) - S(i1 - 1, j2) - S(i2, j1 - 1)) % MOD;
+        while (Ans < 0) Ans += MOD;
+        cout << Ans << endl;
     }
 }
