@@ -14,10 +14,16 @@ void fast_stream() {
 #define int long long
 const int INF = 0x7fffffffffffffff;
 const int MAXN = 2e5 + 9;
-
+void _swap(int &a, int &b, int &c) {
+    if (a < b) swap(a, b);
+    if (b < c) swap(b, c);
+    if (a < b) swap(a, b);
+}
 void solve () {
-
-
+    int a, b, c, m; cin >> a >> b >> c >> m; _swap(a, b, c);
+    if (a + b + c - 3 < m) { cout << "NO" << endl; return; }
+    if (a - b - c - 1 > m) { cout << "NO" << endl; return; }
+    cout << "YES" << endl;
 }
 
 signed main() {

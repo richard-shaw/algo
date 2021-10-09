@@ -1,9 +1,9 @@
-//
 // Created by Shaw on 2021/9/20.
-//
+
 #pragma GCC optimize("Ofast", "inline", "-ffast-math")
 #pragma GCC target("avx,sse2,sse3,sse4,mmx")
 #include <bits/stdc++.h>
+
 using namespace std;
 #define int long long
 #define MAXN 1000004
@@ -15,6 +15,7 @@ double dv[MAXN];
 void init() {
     memset(visit, 0, sizeof(visit));
     phi[1] = 1;
+
     for (int i = 2; i < MAXN; i++) {
         if (visit[i] == 0) prime[++tot] = i, phi[i] = i - 1;
         for (int j = 1; j <= tot && i * prime[j] < MAXN; j++) {
