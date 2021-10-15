@@ -13,18 +13,48 @@ void fast_stream() {
 }
 #define int long long
 const int INF = 0x7fffffffffffffff;
-const int MAXN = 2e5 + 9;
+const int MAXN = 1003;
+#define LEN(n) ((n+1)*n/2)
+int mp[MAXN][MAXN], n, m, q, ans = 0;
+// up: 0, right: 1, down: 2, left: 3
+int dx[4] = {-1,0,1,0}, dy[4] = {0,1,0,-1};
+bool can_move(int x, int y, int order) {
+    int nx = x + dx[order], ny = y + dy[order];
+    if (nx <= 0 || nx > n || ny <= 0 || ny > m || mp[nx][ny] == 1) return false;
+    return true;
+}
+int path(int x, int y, int order) {
+    if (!can_move(x, y, order)) return 0;
+    return 1 + path(x+dx[order], y+dy[order], 3-order);
+}
+int delta(int n1, int n2) {
+    return LEN((n1+n2+1))-LEN(n1)-LEN(n2);
+}
 
-void solve () {
-
-
+int tmp[MAXN][MAXN][2];
+int dp(int i, int j, int order) {
+    if (~tmp[i][j][order]) return tmp[i][j][order];
+    if (i == n && j == m) return 1;
+    if (i == n) return 1 + (order == 0);
+    if (j == m) return 1 + (order == 1);
+    return tmp[i][j][order] = (order == 0 ? dp(i, j+1, 1-order) : dp(i+1, j, 1-order)) + 1;
 }
 
 signed main() {
+    memset(tmp, -1, sizeof(tmp));
     fast_stream();
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
+    cin >> n >> m >> q;
+    for (int i = 1; i <= n; i++) for (int j = 1; j <= m; j++) {
+        mp[i][j] = 0;
+        ans += (dp(i, j, 0) + dp(i, j, 1) - 1);
+    }
+    while (q--) {
+        int x, y;
+        cin >> x >> y;
+        int n11 = path(x, y, 0), n12 = path(x, y, 1);
+        int n21 = path(x, y, 3), n22 = path(x, y, 2);
+        ans += (mp[x][y] == 0 ? -1 : 1) * (delta(n11, n12) + delta(n21, n22) - 1);
+        cout << ans << endl;
+        mp[x][y] = 1 - mp[x][y];
     }
 }

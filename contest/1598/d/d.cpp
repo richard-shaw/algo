@@ -14,17 +14,20 @@ void fast_stream() {
 #define int long long
 const int INF = 0x7fffffffffffffff;
 const int MAXN = 2e5 + 9;
-map<int, int> map_d, map_t;
+int a[MAXN], b[MAXN], ca[MAXN], cb[MAXN];
 
 void solve () {
-    map_d.clear(), map_t.clear();
-    int N;
+    int N, ans = 0;
     cin >> N;
-    
-
+    for (int i = 1; i <= N; i++) cin >> a[i] >> b[i], ca[a[i]]++, cb[b[i]]++;
+    for (int i = 1; i <= N; i++) ans += (ca[a[i]] - 1) * (cb[b[i]] - 1);
+    cout << (N * (N - 1) * (N - 2) / 6) - ans << endl;
+    for (int i = 1; i <= N; i++) ca[a[i]]--, cb[b[i]]--;
 }
 
 signed main() {
+    memset(ca, 0, sizeof(ca));
+    memset(cb, 0, sizeof(cb));
     fast_stream();
     int t;
     cin >> t;
