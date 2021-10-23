@@ -11,13 +11,14 @@ int main() {
     for (int i = 0; i < MAXN; i++) f[i] = 1e9;
     cin >> N >> W;
     for (int i = 1; i <= N; i++) cin >> a[i];
+    sort(a+1, a+1+N);
     f[0] = 1, g[0] = W;
     for (int s = 0; s < (1 << N); s++) {
         for (int j = 1; j <= N; j++) {
             if (s & (1 << (j-1))) continue;
             if (g[s] >= a[j] && f[s | (1 << (j - 1))] >= f[s]) {
                 f[s | (1 << (j-1))] = f[s];
-                g[s | (1 << (j-1))] = g[s] - a[j];
+                g[s | (1 << (j-1))] = max(g[s | (1 << (j-1))], g[s] - a[j]);
             } else if (g[s] < a[j] && f[s | (1 << (j - 1))] >= f[s] + 1){
                 f[s | (1 << (j - 1))] = f[s] + 1;
                 g[s | (1 << (j - 1))] = max(g[s | (1 << (j - 1))], W - a[j]);
