@@ -35,7 +35,7 @@ void judge(char ch) {
     if (!is_pal(tmp, l)) return;
     int start_num = (l / 2) + (l % 2), end_num = (l / 2) + 1;
     int start_index, end_index, picked = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) { 
         if (S[i] == ch) continue;
         picked++;
         if (picked == start_num) start_index = i;
