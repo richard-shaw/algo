@@ -6,25 +6,104 @@
 #pragma GCC target("avx,sse2,sse3,sse4,mmx")
 #include<bits/stdc++.h>
 using namespace std;
-void fast_stream() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+typedef long long LL;
+const LL INF = 1e13;
+const int MAXN = 1e5 + 5;
+LL visit[MAXN], phi[MAXN], prime[MAXN], f[MAXN][20], S1[MAXN][350], S2[MAXN][320], lmt[MAXN];
+pair<int, int> stage[MAXN];
+int stage_num = 0;
+
+LL c(int l, int r) {
+    LL ans;
+    if (l <= lmt[r]) {
+        ans = S2[r][r / (lmt[r] + 1)] + S1[r][lmt[r]] - S1[r][l-1];
+    } else {
+        int rl = r / l;
+        ans = S2[r][rl] - phi[rl] * (l - r / (rl + 1) - 1);
+    }
+
+    return ans + (r - l + 1);
 }
-#define int long long
-const int INF = 0x7fffffffffffffff;
-const int MAXN = 2e5 + 9;
-
-void solve () {
-
-
+void init_phi() {
+    memset(visit, 0, sizeof(visit));
+    phi[0] = phi[1] = 0;
+    int tot = 0;
+    for (int i = 2; i < MAXN; i++) {
+        if (visit[i] == 0) prime[++tot] = i, phi[i] = i - 1;
+        for (int j = 1; j <= tot && i * prime[j] < MAXN; j++) {
+            visit[i * prime[j]] = 1;
+            if (i % prime[j] == 0) {
+                phi[i * prime[j]] = phi[i] * prime[j];
+                break;
+            } else {
+                phi[i * prime[j]] = phi[i] * phi[prime[j]];
+            }
+        }
+    }
+    int N = 1e5;
+    for (int i = 1; i < MAXN; i++) phi[i] += phi[i-1];
+    for (int R = 1; R <= N; R++) {
+        S1[R][0] = S2[R][0] = 0;
+        for (int l = 1; l * l <= R; l++) {
+            S1[R][l] += (phi[R / l] + S1[R][l-1]);
+            lmt[R] = l;
+        }
+        for (int l = lmt[R] + 1; l <= R; ) {
+            int r = min(R, R / (R / l));
+            S2[R][R / l] = (r - l + 1) * phi[R / l];
+            l = r + 1;
+        }
+        for (int l = 1; l <= R / (lmt[R] + 1); l++) S2[R][l] += S2[R][l-1];
+    }
 }
 
-signed main() {
-    fast_stream();
+void init_dp() {
+    int N = 100000;
+    for (int n = 1; n <= N; n++) f[n][1] = c(1, n);
+    for (int k = 2; k <= 16; k++) {
+        stage_num = 1;
+        stage[stage_num].first = 1;
+        stage[stage_num].second = k - 1;
+        for (int n = k; n <= N; n++) {
+            int best = stage[upper_bound(stage + 1, stage + 1 + stage_num, make_pair(n, MAXN)) - stage - 1].second;
+            f[n][k] = f[best][k-1] + c(best+1, n);
+            for (int idx = stage_num; idx >= 1; idx--) {
+                int old_best = stage[stage_num].second, l = stage[stage_num].first, r = N;
+                if (n < l && f[old_best][k-1] + c(old_best+1, l) >= f[n][k-1] + c(n+1, l)) stage_num--;
+                else {
+                    while (l < r) {
+                        int mid = (l + r) >> 1;
+                        if (mid <= n) { l = mid + 1; continue; }
+                        if (f[old_best][k-1] + c(old_best+1, mid) >= f[n][k-1] + c(n+1, mid)) r = mid;
+                        else l = mid + 1;
+                    }
+                    bool l_is_better = f[old_best][k-1] + c(old_best+1, l) > f[n][k-1] + c(n+1, l);
+                    if (l_is_better && l <= N) stage[++stage_num] = make_pair(l, n);
+                    if (!l_is_better && l + 1 <= N) stage[++stage_num] = make_pair(l+1, n);
+                    break;
+                }
+            }
+            if (stage_num == 0) stage[1].first = 1, stage[1].second = n;
+        }
+    }
+}
+
+LL dp(int n, int k) {
+    if (k == 1) return c(1, n);
+    if (k >= 17) return n;
+    if ((1 << k) > n) return n;
+    return f[n][k];
+}
+
+int main() {
+    init_phi();
+    init_dp();
     int t;
     cin >> t;
     while (t--) {
-        solve();
+        int n, k;
+        cin >> n >> k;
+        cout << dp(n, k) << endl;
     }
+    return 0;
 }
