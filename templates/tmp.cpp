@@ -5,26 +5,52 @@
 #pragma GCC optimize("Ofast", "inline", "-ffast-math")
 #pragma GCC target("avx,sse2,sse3,sse4,mmx")
 #include<bits/stdc++.h>
+
 using namespace std;
-void fast_stream() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-}
+#define SHAW ::CASE_DEBUG
+#define FAST_IO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define gcd(x, y) __gcd(x, y)
+#define lcm(x, y) (x / __gcd(x, y) * y)
+#define LL(x) (x << 1)
+#define RR(x) (LL(x) | 1)
+#define MID(l, r) ((l + r) >> 1)
+#define vec(v, p) vector<int> v(p)
+#define f_vec(v, p) vector<double> v(p)
+#define set(s) set<int> s; s.clear()
+#define map(mp) map<int, int> mp; mp.clear()
+#define pb push_back
 #define int long long
-const int INF = 0x7fffffffffffffff;
-const int MAXN = 2e5 + 9;
+int ____MOD;
+inline int fast_pow(int a, int b) { int base = a, ans = 1; while (b > 0) { if (b & 1) ans = (ans * base) % ____MOD; base = (base * base) % ____MOD; b >>= 1; } return ans; }
+inline int inv(int b) { return fast_pow(b, ____MOD-2); }
+inline int mod_mul(int a, int b) { return (a * b) % ____MOD; }
+inline int mod_div(int a, int b) { return mod_mul(a, inv(b)); }
+const int INF9 = 1e9 + 10;
+const int INF18 = 1e18 + 10;
+const int MOD = ____MOD = 998244353;
+const int MAXN = 2e5 + 10;
 
-void solve () {
-
-
+void solve(int _case) {
+    cout << _case << endl;
 }
 
 signed main() {
-    fast_stream();
+
+    FAST_IO
     int t;
+#ifdef SHAW//::CASE_DEBUG
+    cout << "This is DEBUG MODEL" << endl;
+#endif
     cin >> t;
-    while (t--) {
-        solve();
+    for (int _case = 1; _case <= t; _case++) {
+#ifdef SHAW//::CASE_DEBUG
+        cout << "Case #" << _case << " start" << endl;
+        clock_t t1 = clock();
+#endif
+        solve(_case);
+#ifdef SHAW//::CASE_DEBUG
+        clock_t t2 = clock();
+        cout << "Case #" << _case << " used: " << ((double)(t2-t1) / CLOCKS_PER_SEC) << "s" << endl;
+#endif
     }
 }
