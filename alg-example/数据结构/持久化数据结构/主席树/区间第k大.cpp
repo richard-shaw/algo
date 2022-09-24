@@ -19,6 +19,7 @@ int init(int l, int r) {
     int mid = (l + r) >> 1;
     T[cur].lid = init(l, mid);
     T[cur].rid = init(mid+1, r);
+    return cnt;
 }
 
 void update(int l, int r, int pr, int &cur, int pos) {
