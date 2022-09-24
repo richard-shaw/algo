@@ -11,7 +11,7 @@ struct tree_node {
     LL sum;
     void update(LL lz) {
         lazy += lz;
-        sum += (r - l + 1) * lz;
+        sum += lz * (r - l + 1);
     }
 
 } tree[maxn << 2];
