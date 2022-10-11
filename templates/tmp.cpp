@@ -29,6 +29,9 @@ using namespace std;
 #define map(mp) map<int, int> mp; mp.clear()
 #define pb push_back
 #define int long long
+#define endl "\n"
+#define YES cout << "YES\n"
+#define NO cout << "NO\n"
 int ____MOD;
 inline int fast_pow(int a, int b) { int base = a, ans = 1; while (b > 0) { if (b & 1) ans = (ans * base) % ____MOD; base = (base * base) % ____MOD; b >>= 1; } return ans; }
 inline int inv(int b) { return fast_pow(b, ____MOD-2); }

@@ -11,6 +11,7 @@ void fast_stream() {
     cin.tie(0);
     cout.tie(0);
 }
+
 //#define int long long
 //const int INF = 0x7fffffffffffffff;
 const int MAXN = 2003;

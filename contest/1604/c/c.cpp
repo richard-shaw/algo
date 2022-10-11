@@ -13,6 +13,7 @@ void fast_stream() {
 }
 #define int long long
 const int INF = 0x7fffffffffffffff;
+
 const int MAXN = 1e5 + 9;
 int arr[MAXN], n;
 
@@ -28,6 +29,7 @@ void solve () {
         { cout << "NO" << endl; return; }
     }
     cout << "YES" << endl;
+
 }
 
 signed main() {
