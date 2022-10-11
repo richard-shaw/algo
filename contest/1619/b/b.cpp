@@ -14,10 +14,14 @@ void fast_stream() {
 #define int long long
 const int INF = 0x7fffffffffffffff;
 const int MAXN = 2e5 + 9;
-
+set<int> S;
 void solve () {
-
-
+    int N;
+    S.clear();
+    cin >> N;
+    for (int i = 1; i * i <= N; i++) S.insert(i * i);
+    for (int i = 1; i * i * i <= N; i++) S.insert(i * i * i);
+    cout << S.size() << endl;
 }
 
 signed main() {

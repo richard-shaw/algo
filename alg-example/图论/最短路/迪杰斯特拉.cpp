@@ -22,7 +22,8 @@ void func(int n, int m, int s) {
     Q.push({ -dis[s], s });
 
     while (!Q.empty()) {
-        int u = Q.top().second; Q.pop();
+        int u = Q.top().second, d = -Q.top().first; Q.pop();
+        if (dis[u] != d) continue;
         for (int i = 0; i < E[u].size(); i++) {
             int v = E[u][i].first, w = E[u][i].second;
 

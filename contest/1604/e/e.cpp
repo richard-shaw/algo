@@ -13,6 +13,7 @@ void fast_stream() {
 }
 #define int long long
 const int INF = 0x7fffffffffffffff;
+
 const int MOD = 998244353;
 const int MAXN = 1e5 + 9;
 int arr[MAXN], dp[2][MAXN], N;
@@ -54,7 +55,6 @@ signed main() {
     st[0].clear(), st[1].clear();
     int t;
     cin >> t;
-
     while (t--) {
         solve();
     }
