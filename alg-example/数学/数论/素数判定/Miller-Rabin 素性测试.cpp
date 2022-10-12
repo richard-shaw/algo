@@ -12,9 +12,10 @@ typedef __int128 int128;
 const int64 test_time = 10;
 
 inline int64 fast_pow(int64 a, int64 b, int64 mod) {
-    int64 ans = 1, base = a;
+    int64 ans = 1;
+    int128 base = a;
     while (b > 0) {
-        if (b & 1) ans = (ans * base) % mod;
+        if (b & 1) ans = ((int128) ans * base) % mod;
         base = (base * base) % mod;
         b >>= 1;
     }
