@@ -14,10 +14,26 @@ void fast_stream() {
 #define int long long
 const int INF = 0x7fffffffffffffff;
 const int MAXN = 2e5 + 9;
+int N, idx[MAXN];
+pair<int, int> a[MAXN];
 
 void solve () {
-
-
+    cin >> N;
+    for (int i = 1; i <= N; i++) cin >> a[i].first, a[i].second = i;
+    sort(a + 1, a + 1 + N);
+    int pos = 0, Ans = 0;
+    for (int i = N; i >= 1; i--) {
+        pos = -pos + (pos <= 0);
+        idx[a[i].second] = pos;
+        Ans += (pos < 0 ? -pos : pos) * a[i].first;
+    }
+    cout << 2 * Ans << endl;
+    cout << 0 << ' ';
+    for (int i = 1; i <= N; i++) {
+        cout << idx[i];
+        if (i == N) cout << endl;
+        else cout << ' ';
+    }
 }
 
 signed main() {

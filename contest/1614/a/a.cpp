@@ -13,10 +13,24 @@ void fast_stream() {
 }
 #define int long long
 const int INF = 0x7fffffffffffffff;
-const int MAXN = 2e5 + 9;
+const int MAXN = 109;
+int N, L, R, K;
+int arr[MAXN];
 
 void solve () {
+    int cnt = 0, p, ans = 0;
+    cin >> N >> L >> R >> K;
+    for (int i = 1; i <= N; i++) {
+        cin >> p;
+        if (p >= L && p <= R) arr[++cnt] = p;
+    }
+    sort(arr + 1, arr + 1 + cnt);
 
+    for (int i = 1; i <= cnt; i++) {
+        if (arr[i] <= K) K-=arr[i], ans++;
+        else break;
+    }
+    cout << ans << endl;
 
 }
 

@@ -14,17 +14,25 @@ void fast_stream() {
 #define int long long
 const int INF = 0x7fffffffffffffff;
 const int MAXN = 2e5 + 9;
-
-void solve () {
-
-
-}
+const int MOD = 1e9 + 1;
+int N, T[MAXN], lastans = 0;
 
 signed main() {
     fast_stream();
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
+    cin >> N;
+    for (int i = 1; i <= N; i++) {
+        cin >> T[i];
+        int K, X;
+        cin >> K;
+        while (K--) {
+            cin >> X;
+            X = (X + lastans) % MOD;
+            for (int j = 1; j <= i; j++) {
+                if (X < T[j]) X++;
+                else if (X > T[j]) X--;
+            }
+            cout << X << endl;
+            lastans = X;
+        }
     }
 }
